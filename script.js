@@ -14,26 +14,6 @@ let computerChoice= "";
 let numGames = 0;
 let maxGames = 5;
 
-// rock.addEventListener("click", function(){
-//     humanChoice = "rock";
-//     numGames++;
-//     playRound();
-//     return numGames;
-// });
-// paper.addEventListener("click", function(){
-//     humanChoice = "paper";
-//     numGames++;
-//     playRound();
-//     return numGames;
-// });
-// scissors.addEventListener("click", function(){
-//     humanChoice = "scissors";
-//     numGames++;
-//     playRound();
-//     return numGames;
-// });
-
-
 function getComputerChoice(){
     let computerNumChoice = Math.floor(Math.random() * 3) + 1;
     if(computerNumChoice === 1){
