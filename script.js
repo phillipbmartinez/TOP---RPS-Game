@@ -11,19 +11,27 @@ let humanScore = 0;
 let computerScore = 0;
 let humanChoice = "";
 let computerChoice= "";
+let numGames = 0;
+let maxGames = 5;
 
-rock.addEventListener("click", function(){
-    humanChoice = "rock";
-    playRound();
-});
-paper.addEventListener("click", function(){
-    humanChoice = "paper";
-    playRound();
-});
-scissors.addEventListener("click", function(){
-    humanChoice = "scissors";
-    playRound();
-});
+// rock.addEventListener("click", function(){
+//     humanChoice = "rock";
+//     numGames++;
+//     playRound();
+//     return numGames;
+// });
+// paper.addEventListener("click", function(){
+//     humanChoice = "paper";
+//     numGames++;
+//     playRound();
+//     return numGames;
+// });
+// scissors.addEventListener("click", function(){
+//     humanChoice = "scissors";
+//     numGames++;
+//     playRound();
+//     return numGames;
+// });
 
 
 function getComputerChoice(){
@@ -42,54 +50,91 @@ function getComputerChoice(){
 
 
 function playRound(){
-    getComputerChoice();
+    const computerChoice = getComputerChoice();
     
     if (humanChoice === computerChoice){
-        console.log("It's a tie!");
+        numGames++;
+        console.log(numGames, humanScore, computerScore);
     }
     else if (humanChoice === "rock" && computerChoice === "paper"){
-        console.log("You lose! Paper beats rock.");
         computerScore++;
+        numGames++;
+        console.log(numGames, humanScore, computerScore);
     }
     else if (humanChoice === "rock" && computerChoice === "scissors"){
-        console.log("You win! Rock beats scissors.");
+        numGames++;
         humanScore++;
+        console.log(numGames, humanScore, computerScore);
+        
     }
     else if (humanChoice === "paper" && computerChoice === "rock"){
-        console.log("You win! Paper beats rock.");
+        numGames++;
         humanScore++;
+        console.log(numGames, humanScore, computerScore);
     }
     else if (humanChoice === "paper" && computerChoice === "scissors"){
-        console.log("You lose! Scissors beats paper.");
+        numGames++;
         computerScore++;
+        console.log(numGames, humanScore, computerScore);
     }
     else if (humanChoice === "scissors" && computerChoice === "rock"){
-        console.log("You lose! Rock beats scissors.");
+        numGames++;
         computerScore++;
+        console.log(numGames, humanScore, computerScore);
     }
     else if (humanChoice === "scissors" && computerChoice === "paper"){
-        console.log("You win! Scissors beats paper.");
+        numGames++;
         humanScore++;
+        console.log(numGames, humanScore, computerScore);
     }
 
-    if(humanScore > computerScore){
-        playerChoice.textContent = `Player chose: ${humanChoice}`;
-        compChoice.textContent = `Computer chose: ${computerChoice}`;
-        resultsText.textContent = "You won the game!";
+    if (numGames < maxGames){
+        if(humanScore > computerScore){
+            playerChoice.textContent = `Player chose: ${humanChoice}`;
+            compChoice.textContent = `Computer chose: ${computerChoice}`;
+        }
+        else if(computerScore > humanScore){
+            playerChoice.textContent = `Player chose: ${humanChoice}`;
+            compChoice.textContent = `Computer chose: ${computerChoice}`;
+        }
+        else if(computerScore === humanScore){
+            playerChoice.textContent = `Player chose: ${humanChoice}`;
+            compChoice.textContent = `Computer chose: ${computerChoice}`;
+        }
     }
-    else if(computerScore > humanScore){
-        playerChoice.textContent = `Player chose: ${humanChoice}`;
-        compChoice.textContent = `Computer chose: ${computerChoice}`;
-        resultsText.textContent = "The computer won the game.";
-    }
-    else{
-        playerChoice.textContent = `Player chose: ${humanChoice}`;
-        compChoice.textContent = `Computer chose: ${computerChoice}`;
-        resultsText.textContent = "The game was a tie!";
+    else {
+        const finalResult = humanScore > computerScore ? "You won the game!" :
+                            humanScore < computerScore ? "The computer won the game." :
+                            "The game was a tie!";
+        resultsText.textContent = finalResult;
+        disableButtons();
     }
 }
 
 
+function disableButtons() {
+    rock.removeEventListener("click", rockClickHandler);
+    paper.removeEventListener("click", paperClickHandler);
+    scissors.removeEventListener("click", scissorsClickHandler);
+}
 
+function rockClickHandler() {
+    humanChoice = "rock";
+    playRound();
+}
+
+function paperClickHandler() {
+    humanChoice = "paper";
+    playRound();
+}
+
+function scissorsClickHandler() {
+    humanChoice = "scissors";
+    playRound();
+}
+
+rock.addEventListener("click", rockClickHandler);
+paper.addEventListener("click", paperClickHandler);
+scissors.addEventListener("click", scissorsClickHandler);
 
 
